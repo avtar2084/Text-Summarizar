@@ -12,7 +12,7 @@ This project implements an NLP system **built from scratch** (without using any 
 
 ## 🏗️ Project Structure
 
-Project/
+Project/ 
 │
 ├── Src/
 │ ├── train.py # Summarization model training
