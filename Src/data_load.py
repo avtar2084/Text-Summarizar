@@ -1,7 +1,7 @@
 from datasets import load_dataset
 import json
 
-subset_size = 2000
+subset_size = 3000
 truncate_words = 1000
 
 # --------------------------------------
@@ -27,14 +27,14 @@ for i, sample in enumerate(dataset_stream):
     # Handle summary (in NarrativeQA it might be a dict with "text")
     summary_text = summary["text"] if isinstance(summary, dict) else summary
 
-    # ---------- Collect full QA sample ----------
-    record = {
-        "story": short_text,
-        "summary": summary_text,
-        "question": question,
-        "answers": answers
-    }
-    dataset_all.append(record)
+    # # ---------- Collect full QA sample ----------
+    # record = {
+    #     "story": short_text,
+    #     "summary": summary_text,
+    #     "question": question,
+    #     "answers": answers
+    # }
+    # dataset_all.append(record)
 
     # ---------- Deduplicate for summary ----------
     story_summary_key = short_text
@@ -45,26 +45,26 @@ for i, sample in enumerate(dataset_stream):
         })
         unique_story_summary_set.add(story_summary_key)
 
-print(f" Collected {len(dataset_all)} QA samples.")
+# print(f" Collected {len(dataset_all)} QA samples.")
 print(f" Collected {len(deduped_summaries)} unique story-summary pairs.")
 
 # Save to JSON
 
 
-output_file_qa = "Data/train_narrativeqa_qa.json"
-with open(output_file_qa, "w", encoding="utf-8") as f:
-    json.dump(dataset_all, f, indent=2, ensure_ascii=False)
+# output_file_qa = "Data/train_narrativeqa_qa.json"
+# with open(output_file_qa, "w", encoding="utf-8") as f:
+#     json.dump(dataset_all, f, indent=2, ensure_ascii=False)
 
 
 
 # deduped_summaries.sort(key=lambda x: x["story"])  # Sort by story text for consistency
 
-output_file_sum = "Data/train_narrativeqa_summary.json"
+output_file_sum = "Data/train_narrativeqa_summary_temp.json"
 with open(output_file_sum, "w", encoding="utf-8") as f:
     json.dump(deduped_summaries, f, indent=2, ensure_ascii=False)
 
-print(f" Saved QA dataset to {output_file_qa}.")
-print(f" Saved summary dataset to {output_file_sum}.")
+# print(f" Saved QA dataset to {output_file_qa}.")
+# print(f" Saved summary dataset to {output_file_sum}.")
 
 
 
