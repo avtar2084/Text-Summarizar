@@ -1,7 +1,7 @@
 from datasets import load_dataset
 import json
 
-subset_size = 3000
+subset_size = 5000
 truncate_words = 1000
 
 # --------------------------------------
